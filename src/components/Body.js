@@ -1,12 +1,15 @@
 import RestuarantCard from "./RestuarantCard";
 import { useState, useEffect } from "react";
 import ShimmerCard from "./ShimmerCard";
+import useOnlineStatus from "../utils/useOnlineStatus";
 import { Link } from "react-router-dom";
 
 const Body = () => {
   const [restuarantList, setRestuarantList] = useState([]);
   const [filteredList, setFilteredList] = useState([]);
   const [searchValue, setSearchValue] = useState("");
+  const onlineStatus = useOnlineStatus();
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -16,9 +19,6 @@ const Body = () => {
       "https://www.swiggy.com/dapi/restaurants/list/v5?lat=15.85760&lng=74.50110&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
     );
     const json = await data.json();
-    console.log(
-      json?.data?.cards[1]?.card?.card.gridElements?.infoWithStyle?.restaurants
-    );
     setRestuarantList(
       json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
@@ -26,6 +26,10 @@ const Body = () => {
       json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
   };
+
+  if (onlineStatus === false) {
+    return <h1>Oop's No Internet</h1>;
+  }
 
   return restuarantList.length === 0 ? (
     <ShimmerCard />
