@@ -16,7 +16,7 @@ const Body = () => {
 
   const fetchData = async () => {
     const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=15.85760&lng=74.50110&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9715987&lng=77.5945627&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
     );
     const json = await data.json();
     setRestuarantList(
@@ -30,43 +30,52 @@ const Body = () => {
   if (onlineStatus === false) {
     return <h1>Oop's No Internet</h1>;
   }
+  // console.log(restuarantList);
 
   return restuarantList.length === 0 ? (
     <ShimmerCard />
   ) : (
-    <div className="body">
-      <div className="search-container">
-        <input
-          type="text"
-          placeholder="search your fav food"
-          value={searchValue}
-          onChange={(e) => {
-            setSearchValue(e.target.value);
-          }}
-        />
-        <button
-          className="search-btn"
-          onClick={() => {
-            const searchResturant = restuarantList.filter((res) => {
-              return res.info.name
-                .toLowerCase()
-                .includes(searchValue.toLowerCase());
-            });
-            setFilteredList(searchResturant);
-          }}>
-          Search
-        </button>
-        <button
-          onClick={() => {
-            const filterList = restuarantList.filter((res) => {
-              return res.info.avgRating > 4.3;
-            });
-            setFilteredList(filterList);
-          }}>
-          Top Rated Restuarant
-        </button>
+    <div>
+      <div className="m-4 my-8">
+        <div className="flex justify-between">
+          <div>
+            <input
+              className="hover:border-b-2 border-slate-300 text-xl text-slate-950 m-2 border-0 focus:outline-none"
+              type="text"
+              placeholder="Search"
+              value={searchValue}
+              onChange={(e) => {
+                setSearchValue(e.target.value);
+              }}
+            />
+            <button
+              className="w-40 h-10 mx-2 px-6 bg-slate-300 rounded-md hover:bg-slate-500"
+              onClick={() => {
+                const searchResturant = restuarantList.filter((res) => {
+                  return res.info.name
+                    .toLowerCase()
+                    .includes(searchValue.toLowerCase());
+                });
+                setFilteredList(searchResturant);
+              }}>
+              Search
+            </button>
+          </div>
+          <div>
+            <button
+              className="w-80 h-10 mx-2 px-6 bg-slate-300 rounded-md place-content-end hover:bg-slate-500 "
+              onClick={() => {
+                const filterList = restuarantList.filter((res) => {
+                  return res.info.avgRating > 4.3;
+                });
+                setFilteredList(filterList);
+              }}>
+              Top Rated Restuarant
+            </button>
+          </div>
+        </div>
       </div>
-      <div className="res-container">
+      <div className="flex flex-wrap flex-row m-4">
         {filteredList.map((res) => {
           return (
             <Link to={"restuarant/" + res.info.id} key={res.info.id}>
