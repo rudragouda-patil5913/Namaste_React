@@ -1,4 +1,4 @@
-import RestuarantCard from "./RestuarantCard";
+import RestuarantCard, { withPromotedRestuarantCard } from "./RestuarantCard";
 import { useState, useEffect } from "react";
 import ShimmerCard from "./ShimmerCard";
 import useOnlineStatus from "../utils/useOnlineStatus";
@@ -10,6 +10,8 @@ const Body = () => {
   const [searchValue, setSearchValue] = useState("");
   const onlineStatus = useOnlineStatus();
 
+  
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -20,21 +22,26 @@ const Body = () => {
     );
     const json = await data.json();
     setRestuarantList(
-      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
     setFilteredList(
-      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
   };
+
+
 
   if (onlineStatus === false) {
     return <h1>Oop's No Internet</h1>;
   }
-  // console.log(restuarantList);
 
-  return restuarantList.length === 0 ? (
-    <ShimmerCard />
-  ) : (
+  if (restuarantList.length === 0) {
+    return <ShimmerCard />;
+  }
+  // console.log(restuarantList);
+  const PromotedRestuarant = withPromotedRestuarantCard(RestuarantCard);
+
+  return (
     <div>
       <div className="m-4 my-8">
         <div className="flex justify-between">
@@ -79,7 +86,11 @@ const Body = () => {
         {filteredList.map((res) => {
           return (
             <Link to={"restuarant/" + res.info.id} key={res.info.id}>
-              <RestuarantCard resData={res} />
+              {res.info.aggregatedDiscountInfoV3 ? (
+                <PromotedRestuarant resData={res} />
+              ) : (
+                <RestuarantCard resData={res} />
+              )}
             </Link>
           );
         })}
