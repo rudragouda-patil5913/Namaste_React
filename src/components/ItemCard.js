@@ -1,6 +1,17 @@
 import { CDN_IMG_URL } from "../utils/constants";
+import { useDispatch } from "react-redux";
+import { addItem } from "../utils/CartSlice";
 
 const ItemCard = ({ items }) => {
+  const dispatch = useDispatch();
+
+  // const handleClick = () => {
+  //   dispatch(addItem("grapes"));
+  // };
+  const handleClick = (item) => {
+    dispatch(addItem(item));
+  };
+
   return (
     <div className="flex flex-col">
       {items.map((item) => {
@@ -23,7 +34,9 @@ const ItemCard = ({ items }) => {
                 src={CDN_IMG_URL + item.card.info.imageId}
                 alt="food-img"
               />
-              <button className="p-2 border-0 rounded-lg hover:bg-slate-300 shadow-lg">
+              <button
+                className="p-2 border-0 rounded-lg hover:bg-slate-300 shadow-lg"
+                onClick={() => handleClick(item)}>
                 <span className="font-semibold bg-slate-100 ">Add + </span>
               </button>
             </div>

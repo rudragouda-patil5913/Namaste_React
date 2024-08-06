@@ -1,11 +1,17 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { LOGO_URL } from "../utils/constants";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const [isLoggedIn, setIsLoggeIn] = useState("Login");
   const onlineStatus = useOnlineStatus();
+
+  const { name } = useContext(UserContext);
+  const cartItems = useSelector((store) => store.cart.items);
+  console.log(cartItems);
 
   return (
     <div className="flex justify-between shadow-lg rounded-lg mx-14 my-6">
@@ -29,7 +35,10 @@ const Header = () => {
             <Link to="/contact">Contact</Link>
           </li>
           <li className="p-2 m-4 border-0 rounded-lg hover:bg-slate-300 shadow-lg">
-            Cart
+            <Link to="/cart">Cart {cartItems.length} items</Link>
+          </li>
+          <li className="p-2 m-4 border-0 rounded-lg hover:bg-slate-300 shadow-lg bg-blue-400">
+            {name.split("")[0]}
           </li>
           <button
             className="p-2 m-4 border-0  hover:bg-slate-300 rounded-lg shadow-lg"
