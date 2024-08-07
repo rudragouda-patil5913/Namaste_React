@@ -14,10 +14,6 @@ const RestuarantMenu = () => {
     return <ShimmerCard />;
   }
 
-  // if (showItems === showItems) {
-  //   setShowItems(null);
-  // }
-
   const { name, avgRating, cuisines, locality, cloudinaryImageId } =
     resInfo?.cards[2]?.card?.card?.info;
 
@@ -53,7 +49,9 @@ const RestuarantMenu = () => {
             key={res.card.card.title}
             data={res.card.card}
             showItems={index === showItems ? true : false}
-            setShowItems={() => setShowItems(index)}
+            setShowItems={() =>
+              setShowItems(index === showItems ? null : index)
+            }
           />
         );
       })}
