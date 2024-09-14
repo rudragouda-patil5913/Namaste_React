@@ -1,9 +1,10 @@
+import React from "react";
 import { useState, useContext } from "react";
 import { LOGO_URL } from "../utils/constants";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import UserContext from "../utils/UserContext";
-import { useSelector } from "react-redux";
 
 const Header = () => {
   const [isLoggedIn, setIsLoggeIn] = useState("Login");
@@ -11,7 +12,7 @@ const Header = () => {
 
   const { name } = useContext(UserContext);
   const cartItems = useSelector((store) => store.cart.items);
-  console.log(cartItems);
+  // console.log(cartItems);
 
   return (
     <div className="flex justify-between shadow-lg rounded-lg mx-14 my-6">
