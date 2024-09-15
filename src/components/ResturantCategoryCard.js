@@ -11,10 +11,10 @@ const ResturantCategoryCard = ({ data, showItems, setShowItems }) => {
   // }
 
   return (
-    <div
-      className="w-6/12 mx-auto my-6 bg-slate-100 p-2 shadow-lg"
-      onClick={setShowItems}>
-      <div className="flex justify-between my-4 cursor-pointer border-b-2 border-b-slate-400">
+    <div className="w-6/12 mx-auto my-6 bg-slate-100 p-2 shadow-lg">
+      <div
+        onClick={setShowItems}
+        className="flex justify-between my-4 cursor-pointer border-b-2 border-b-slate-400">
         <span className="w-2/3 font-bold text-lg">
           {title} ({data.itemCards.length})
         </span>
