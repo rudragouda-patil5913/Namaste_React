@@ -2,32 +2,53 @@ import Contact from "../components/Contact";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
-test("Contact us page renders correctly", () => {
-  render(<Contact />);
+// describe is used to render multiple test cases
+describe("Should render the Contact Component", () => {
+  // beforeAll(() => {
+  //   console.log("Test before");
+  // });
 
-  const heading = screen.getByRole("heading");
+  // beforeEach(() => {
+  //   console.log("Before each");
+  // });
 
-  //Assertion
-  expect(heading).toBeInTheDocument();
-});
+  // afterAll(() => {
+  //   console.log("After all test");
+  // });
 
-test("Should have a submit button", () => {
-  render(<Contact />);
+  // afterEach(() => {
+  //   console.log("After Each");
+  // });
 
-  const button = screen.getByText("Submit");
-  expect(button).toBeInTheDocument();
-});
+  test("Contact us page renders correctly", () => {
+    //render
+    render(<Contact />);
 
-test("Should have a input ", () => {
-  render(<Contact />);
+    //Querying
+    const heading = screen.getByRole("heading");
 
-  const input = screen.getByPlaceholderText("name");
-  expect(input).toBeInTheDocument();
-});
+    //Assertion
+    expect(heading).toBeInTheDocument();
+  });
 
-test("Should have a input ", () => {
-  render(<Contact />);
+  test("Should have a submit button", () => {
+    render(<Contact />);
 
-  const input = screen.getAllByRole("textbox");
-  expect(input.length).toBe(2);
+    const button = screen.getByText("Submit");
+    expect(button).toBeInTheDocument();
+  });
+
+  test("Should have a input ", () => {
+    render(<Contact />);
+
+    const input = screen.getByPlaceholderText("name");
+    expect(input).toBeInTheDocument();
+  });
+
+  test("Should have a input ", () => {
+    render(<Contact />);
+
+    const input = screen.getAllByRole("textbox");
+    expect(input.length).toBe(2);
+  });
 });

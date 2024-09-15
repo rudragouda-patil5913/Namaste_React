@@ -65,7 +65,7 @@ it("Should change Login button to Logout Button", () => {
     </BrowserRouter>
   );
 
-  const loginbtn = screen.getByRole("button",{name:"Login"});
+  const loginbtn = screen.getByRole("button", { name: "Login" });
   fireEvent.click(loginbtn);
 
   const logout = screen.getByRole("button", { name: "Logout" });

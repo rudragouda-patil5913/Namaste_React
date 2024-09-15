@@ -46,6 +46,7 @@ const Body = () => {
         <div className="flex justify-between">
           <div>
             <input
+              data-testid="search-input"
               className="hover:border-b-2 border-slate-300 text-xl text-slate-950 m-2 border-0 focus:outline-none"
               type="text"
               placeholder="Search"
@@ -69,6 +70,7 @@ const Body = () => {
           </div>
           <div>
             <button
+            data-testid="top-rated"
               className="w-80 h-10 mx-2 px-6 bg-slate-300 rounded-md place-content-end hover:bg-slate-500 "
               onClick={() => {
                 const filterList = restuarantList.filter((res) => {
